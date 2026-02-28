@@ -372,12 +372,12 @@ export default function HomePage() {
               </Button>
             </Link>
             <Link href="/careers">
-              <Button size="xl" variant="outline" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto rounded-full">
+              <Button size="xl" className="bg-white/90 text-blue-700 hover:bg-white border-0 w-full sm:w-auto rounded-full">
                 Join Our Team
               </Button>
             </Link>
             <Link href="/admin/login">
-              <Button size="xl" variant="outline" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto rounded-full">
+              <Button size="xl" className="bg-white/90 text-blue-700 hover:bg-white border-0 w-full sm:w-auto rounded-full">
                 Admin Login
               </Button>
             </Link>
