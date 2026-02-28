@@ -136,15 +136,15 @@ export default function HomePage() {
               Connect with certified technicians for all your electrical and solar needs. 
               From residential repairs to commercial installations, we&apos;ve got you covered.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="inline-flex flex-col sm:flex-row gap-3 rounded-full bg-white/10 backdrop-blur-sm px-3 py-3 border border-white/20">
               <Link href="/register">
-                <Button size="xl" className="bg-white text-blue-700 hover:bg-gray-100 gap-2 w-full sm:w-auto">
+                <Button size="xl" className="bg-white text-blue-700 hover:bg-gray-100 gap-2 w-full sm:w-auto rounded-full">
                   Request a Service
                   <ArrowRight className="h-5 w-5" />
                 </Button>
               </Link>
               <Link href="/careers">
-                <Button size="xl" variant="outline" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto">
+                <Button size="xl" className="bg-white/90 text-blue-700 hover:bg-white w-full sm:w-auto rounded-full">
                   Join as Technician
                 </Button>
               </Link>
