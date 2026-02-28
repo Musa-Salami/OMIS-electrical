@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { Button } from "@/components/ui/button"
@@ -9,15 +8,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import {
   Zap,
-  Users,
   Award,
-  Target,
   Heart,
   Leaf,
   CheckCircle,
   ArrowRight,
-  MapPin,
-  Calendar,
   Shield,
   Star,
 } from "lucide-react"

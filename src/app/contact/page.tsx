@@ -16,7 +16,6 @@ import {
   Mail,
   Clock,
   Send,
-  MessageSquare,
   CheckCircle,
   Zap,
   AlertCircle,
