@@ -17,19 +17,23 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { technicianJobs, availableJobs, techEarningsMonthly, techPendingPayments, technicians } from "@/lib/mockData"
+
+const currentTech = technicians.find(t => t.id === "TECH-001")!
+const currentMonthEarnings = techEarningsMonthly[techEarningsMonthly.length - 1].amount
 
 const stats = [
   {
     title: "Active Jobs",
-    value: "4",
-    change: "+2 new this week",
+    value: String(currentTech.activeJobs),
+    change: `${technicianJobs.length} assigned`,
     icon: Briefcase,
     color: "text-blue-600",
     bgColor: "bg-blue-100",
   },
   {
     title: "Pending Quotes",
-    value: "3",
+    value: String(techPendingPayments.length),
     change: "Awaiting customer",
     icon: Clock,
     color: "text-amber-600",
@@ -37,72 +41,41 @@ const stats = [
   },
   {
     title: "Completed Jobs",
-    value: "47",
-    change: "+8 this month",
+    value: String(currentTech.completedJobs),
+    change: "Total completed",
     icon: CheckCircle,
     color: "text-emerald-600",
     bgColor: "bg-emerald-100",
   },
   {
     title: "This Month",
-    value: "$5,840",
-    change: "+18% vs last month",
+    value: `$${currentMonthEarnings.toLocaleString()}`,
+    change: "Current earnings",
     icon: DollarSign,
     color: "text-purple-600",
     bgColor: "bg-purple-100",
   },
 ]
 
-const todaysJobs = [
-  {
-    id: "JOB-001",
-    title: "Electrical Panel Upgrade",
-    customer: "John Doe",
-    time: "9:00 AM - 12:00 PM",
-    address: "123 Oak Street, Austin, TX",
-    status: "in_progress",
-    payment: "$2,500",
-  },
-  {
-    id: "JOB-002",
-    title: "Outlet Installation",
-    customer: "Sarah Smith",
-    time: "2:00 PM - 4:00 PM",
-    address: "456 Elm Ave, Austin, TX",
-    status: "scheduled",
-    payment: "$350",
-  },
-]
+const todaysJobs = technicianJobs.map(job => ({
+  id: job.id,
+  title: job.service,
+  customer: job.customer,
+  time: "9:00 AM - 12:00 PM",
+  address: job.address,
+  status: job.status,
+  payment: `$${job.estimatedPay.toLocaleString()}`,
+}))
 
-const newRequests = [
-  {
-    id: "REQ-101",
-    title: "Solar Panel Maintenance",
-    customer: "Robert Brown",
-    urgency: "standard",
-    location: "Austin, TX",
-    posted: "2 hours ago",
-    estimatedValue: "$800 - $1,200",
-  },
-  {
-    id: "REQ-102",
-    title: "Emergency Generator Repair",
-    customer: "Lisa Chen",
-    urgency: "emergency",
-    location: "Round Rock, TX",
-    posted: "30 mins ago",
-    estimatedValue: "$500 - $800",
-  },
-  {
-    id: "REQ-103",
-    title: "EV Charger Installation",
-    customer: "David Wilson",
-    urgency: "flexible",
-    location: "Pflugerville, TX",
-    posted: "5 hours ago",
-    estimatedValue: "$1,500 - $2,000",
-  },
-]
+const newRequests = availableJobs.map(job => ({
+  id: job.id,
+  title: job.service,
+  customer: job.customer,
+  urgency: job.urgency,
+  location: job.address.split(",").slice(-2).join(",").trim(),
+  posted: job.postedDate,
+  estimatedValue: `$${job.estimatedPay.toLocaleString()}`,
+}))
 
 const getStatusBadge = (status: string) => {
   switch (status) {
@@ -139,16 +112,16 @@ export default function TechnicianDashboard() {
       <div className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-xl p-6 text-white">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold mb-1">Good morning, Mike!</h2>
-            <p className="text-slate-300">You have 2 jobs scheduled for today and 3 new requests waiting.</p>
+            <h2 className="text-2xl font-bold mb-1">Good morning, {currentTech.name.split(" ")[0]}!</h2>
+            <p className="text-slate-300">You have {technicianJobs.length} jobs assigned and {availableJobs.length} new requests waiting.</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="text-right">
               <p className="text-sm text-slate-400">Your Rating</p>
               <div className="flex items-center gap-1">
                 <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
-                <span className="text-xl font-bold">4.9</span>
-                <span className="text-sm text-slate-400">(127 reviews)</span>
+                <span className="text-xl font-bold">{currentTech.rating}</span>
+                <span className="text-sm text-slate-400">({currentTech.completedJobs} reviews)</span>
               </div>
             </div>
           </div>
@@ -281,14 +254,14 @@ export default function TechnicianDashboard() {
               <div className="flex items-center justify-between p-3 bg-emerald-50 rounded-lg">
                 <div>
                   <p className="text-sm text-muted-foreground">This Week</p>
-                  <p className="text-xl font-bold text-emerald-600">$1,450</p>
+                  <p className="text-xl font-bold text-emerald-600">${Math.round(currentMonthEarnings / 4).toLocaleString()}</p>
                 </div>
                 <TrendingUp className="h-8 w-8 text-emerald-500" />
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Pending Payments</span>
-                  <span className="font-medium">$2,800</span>
+                  <span className="font-medium">${techPendingPayments.reduce((sum, p) => sum + p.amount, 0).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Jobs This Week</span>

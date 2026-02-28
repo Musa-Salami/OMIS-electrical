@@ -24,93 +24,21 @@ import {
   TrendingUp,
   Filter
 } from "lucide-react"
+import { customers as baseCustomers, serviceRequests } from "@/lib/mockData"
 
-const mockCustomers = [
-  {
-    id: "CUS-001",
-    name: "John Smith",
-    email: "john.smith@example.com",
-    phone: "(555) 123-4567",
-    address: "123 Main St, Austin, TX 78701",
-    joinedDate: "2024-03-15",
-    totalSpent: 28500,
-    totalRequests: 5,
-    activeRequests: 1,
-    status: "active",
-    rating: 4.8,
-    avatar: null,
-  },
-  {
-    id: "CUS-002",
-    name: "Sarah Johnson",
-    email: "sarah.j@example.com",
-    phone: "(555) 234-5678",
-    address: "456 Oak Ave, Austin, TX 78702",
-    joinedDate: "2024-06-20",
-    totalSpent: 15200,
-    totalRequests: 3,
-    activeRequests: 1,
-    status: "active",
-    rating: 5.0,
-    avatar: null,
-  },
-  {
-    id: "CUS-003",
-    name: "Robert Davis",
-    email: "robert.d@example.com",
-    phone: "(555) 345-6789",
-    address: "789 Pine Rd, Austin, TX 78703",
-    joinedDate: "2024-01-10",
-    totalSpent: 42000,
-    totalRequests: 8,
-    activeRequests: 0,
-    status: "active",
-    rating: 4.5,
-    avatar: null,
-  },
-  {
-    id: "CUS-004",
-    name: "Emily Chen",
-    email: "emily.c@example.com",
-    phone: "(555) 456-7890",
-    address: "321 Elm St, Austin, TX 78704",
-    joinedDate: "2025-01-05",
-    totalSpent: 2200,
-    totalRequests: 1,
-    activeRequests: 1,
-    status: "new",
-    rating: null,
-    avatar: null,
-  },
-  {
-    id: "CUS-005",
-    name: "Michael Brown",
-    email: "michael.b@example.com",
-    phone: "(555) 567-8901",
-    address: "654 Maple Dr, Austin, TX 78705",
-    joinedDate: "2023-11-20",
-    totalSpent: 67800,
-    totalRequests: 12,
-    activeRequests: 2,
-    status: "vip",
-    rating: 4.9,
-    avatar: null,
-  },
-  {
-    id: "CUS-006",
-    name: "Lisa Anderson",
-    email: "lisa.a@example.com",
-    phone: "(555) 678-9012",
-    address: "987 Cedar Ln, Austin, TX 78706",
-    joinedDate: "2024-08-15",
-    totalSpent: 500,
-    totalRequests: 1,
-    activeRequests: 0,
-    status: "inactive",
-    rating: 3.0,
-    avatar: null,
-  },
-]
+const mockCustomers = baseCustomers.map(c => {
+  const activeReqs = serviceRequests.filter(r => r.customerId === c.id && !["completed", "cancelled"].includes(r.status)).length
+  let derivedStatus = c.status as string
+  if (c.id === "CUS-004") derivedStatus = "new"
+  if (c.id === "CUS-006") derivedStatus = "inactive"
+  return {
+    ...c,
+    joinedDate: c.joinDate,
+    activeRequests: activeReqs,
+    avatar: null as string | null,
+    status: derivedStatus,
+  }
+})
 
 const statusConfig: Record<string, { label: string; color: string }> = {
   active: { label: "Active", color: "bg-green-100 text-green-800" },

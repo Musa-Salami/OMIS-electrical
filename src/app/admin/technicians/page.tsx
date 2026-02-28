@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { technicians as baseTechnicians } from "@/lib/mockData"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -27,87 +28,15 @@ import {
   MoreVertical
 } from "lucide-react"
 
-const mockTechnicians = [
-  {
-    id: "TECH-001",
-    name: "Mike Wilson",
-    email: "mike.w@omis.com",
-    phone: "(555) 111-2222",
-    address: "Austin, TX",
-    joinedDate: "2022-03-15",
-    status: "available",
-    rating: 4.9,
-    completedJobs: 156,
-    activeJobs: 2,
-    specializations: ["Solar Installation", "Electrical Panels"],
-    certifications: ["NABCEP", "Master Electrician"],
-    avatar: null,
-  },
-  {
-    id: "TECH-002",
-    name: "James Brown",
-    email: "james.b@omis.com",
-    phone: "(555) 222-3333",
-    address: "Austin, TX",
-    joinedDate: "2021-08-20",
-    status: "busy",
-    rating: 4.8,
-    completedJobs: 234,
-    activeJobs: 3,
-    specializations: ["Emergency Repairs", "Commercial Electrical"],
-    certifications: ["Journeyman Electrician"],
-    avatar: null,
-  },
-  {
-    id: "TECH-003",
-    name: "Tom Harris",
-    email: "tom.h@omis.com",
-    phone: "(555) 333-4444",
-    address: "Round Rock, TX",
-    joinedDate: "2023-01-10",
-    status: "available",
-    rating: 4.7,
-    completedJobs: 89,
-    activeJobs: 1,
-    specializations: ["Residential Wiring", "EV Chargers"],
-    certifications: ["Journeyman Electrician", "EV Certified"],
-    avatar: null,
-  },
-  {
-    id: "TECH-004",
-    name: "David Lee",
-    email: "david.l@omis.com",
-    phone: "(555) 444-5555",
-    address: "Cedar Park, TX",
-    joinedDate: "2023-06-01",
-    status: "off_duty",
-    rating: 4.6,
-    completedJobs: 45,
-    activeJobs: 0,
-    specializations: ["Solar Maintenance", "Inspections"],
-    certifications: ["NABCEP Associate"],
-    avatar: null,
-  },
-  {
-    id: "TECH-005",
-    name: "Carlos Martinez",
-    email: "carlos.m@omis.com",
-    phone: "(555) 555-6666",
-    address: "Pflugerville, TX",
-    joinedDate: "2022-11-15",
-    status: "available",
-    rating: 5.0,
-    completedJobs: 112,
-    activeJobs: 1,
-    specializations: ["Commercial Solar", "Panel Upgrades"],
-    certifications: ["NABCEP", "Master Electrician", "OSHA 30"],
-    avatar: null,
-  },
-]
+const mockTechnicians = baseTechnicians.map(t => ({
+  ...t,
+  joinedDate: t.joinDate,
+}))
 
 const statusConfig: Record<string, { label: string; color: string }> = {
   available: { label: "Available", color: "bg-green-100 text-green-800" },
   busy: { label: "Busy", color: "bg-orange-100 text-orange-800" },
+  on_job: { label: "Busy", color: "bg-orange-100 text-orange-800" },
   off_duty: { label: "Off Duty", color: "bg-gray-100 text-gray-800" },
   on_leave: { label: "On Leave", color: "bg-blue-100 text-blue-800" },
 }
@@ -122,14 +51,14 @@ export default function AdminTechniciansPage() {
                           tech.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           tech.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           tech.specializations.some(s => s.toLowerCase().includes(searchQuery.toLowerCase()))
-    const matchesStatus = statusFilter === "all" || tech.status === statusFilter
+    const matchesStatus = statusFilter === "all" || tech.status === statusFilter || (statusFilter === "busy" && tech.status === "on_job")
     return matchesSearch && matchesStatus
   })
 
   const stats = {
     total: mockTechnicians.length,
     available: mockTechnicians.filter(t => t.status === "available").length,
-    busy: mockTechnicians.filter(t => t.status === "busy").length,
+    busy: mockTechnicians.filter(t => t.status === "on_job").length,
     totalJobs: mockTechnicians.reduce((sum, t) => sum + t.completedJobs, 0),
   }
 

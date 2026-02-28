@@ -17,74 +17,12 @@ import {
   Download,
   MessageSquare
 } from "lucide-react"
+import { quotes as baseQuotes } from "@/lib/mockData"
 
-const mockQuotes = [
-  {
-    id: "QUO-001",
-    requestId: "REQ-001",
-    service: "Solar Panel Installation",
-    technician: "Mike Wilson",
-    techInitials: "MW",
-    status: "pending",
-    submittedDate: "2026-02-27",
-    validUntil: "2026-03-13",
-    laborCost: 2500,
-    materialsCost: 10500,
-    totalCost: 15000,
-    estimatedDuration: "3-4 days",
-    notes: "Includes 20 x 400W monocrystalline panels, inverter, mounting hardware, and full installation. Permits and inspection fees included.",
-    breakdown: [
-      { item: "Solar Panels (20x 400W)", cost: 7000 },
-      { item: "Inverter & Optimizer", cost: 2500 },
-      { item: "Mounting Hardware", cost: 1000 },
-      { item: "Labor & Installation", cost: 2500 },
-      { item: "Permits & Inspection", cost: 500 },
-      { item: "Electrical Wiring", cost: 1500 },
-    ],
-  },
-  {
-    id: "QUO-002",
-    requestId: "REQ-004",
-    service: "EV Charger Installation",
-    technician: "Tom Harris",
-    techInitials: "TH",
-    status: "accepted",
-    submittedDate: "2026-02-20",
-    validUntil: "2026-03-06",
-    laborCost: 800,
-    materialsCost: 1400,
-    totalCost: 2200,
-    estimatedDuration: "4-6 hours",
-    notes: "Level 2 ChargePoint Home Flex charger. Includes dedicated 50-amp circuit from panel.",
-    breakdown: [
-      { item: "ChargePoint Home Flex", cost: 700 },
-      { item: "Electrical Components", cost: 350 },
-      { item: "Wiring & Conduit", cost: 350 },
-      { item: "Labor", cost: 800 },
-    ],
-  },
-  {
-    id: "QUO-003",
-    requestId: "REQ-006",
-    service: "Electrical Panel Upgrade",
-    technician: "James Brown",
-    techInitials: "JB",
-    status: "expired",
-    submittedDate: "2026-01-15",
-    validUntil: "2026-01-29",
-    laborCost: 1200,
-    materialsCost: 2300,
-    totalCost: 3500,
-    estimatedDuration: "1-2 days",
-    notes: "Upgrade from 100A to 200A panel. Includes new breaker box and all necessary rewiring.",
-    breakdown: [
-      { item: "200A Breaker Panel", cost: 1200 },
-      { item: "Breakers & Components", cost: 600 },
-      { item: "Wiring", cost: 500 },
-      { item: "Labor", cost: 1200 },
-    ],
-  },
-]
+const mockQuotes = baseQuotes.map(q => ({
+  ...q,
+  totalCost: q.totalAmount,
+}))
 
 const statusConfig: Record<string, { label: string; color: string; icon: React.ElementType }> = {
   pending: { label: "Pending", color: "bg-yellow-100 text-yellow-800", icon: Clock },

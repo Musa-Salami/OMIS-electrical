@@ -19,11 +19,21 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  adminDashboardStats,
+  adminRecentRequests,
+  adminTopTechnicians,
+  adminPendingApplications,
+  customers,
+} from "@/lib/mockData"
+
+const formatCurrency = (value: number) =>
+  value >= 1000 ? `$${value.toLocaleString()}` : `$${value}`
 
 const stats = [
   {
     title: "Total Revenue",
-    value: "$124,500",
+    value: formatCurrency(adminDashboardStats.totalRevenue),
     change: "+12.5%",
     trend: "up",
     icon: DollarSign,
@@ -32,7 +42,7 @@ const stats = [
   },
   {
     title: "Active Requests",
-    value: "48",
+    value: String(adminDashboardStats.activeRequests),
     change: "+8",
     trend: "up",
     icon: Wrench,
@@ -41,7 +51,7 @@ const stats = [
   },
   {
     title: "Total Customers",
-    value: "1,234",
+    value: customers.length.toLocaleString(),
     change: "+15%",
     trend: "up",
     icon: Users,
@@ -50,7 +60,7 @@ const stats = [
   },
   {
     title: "Active Technicians",
-    value: "32",
+    value: String(adminDashboardStats.totalTechnicians),
     change: "+3",
     trend: "up",
     icon: UserCog,
@@ -59,83 +69,36 @@ const stats = [
   },
 ]
 
-const recentRequests = [
-  {
-    id: "REQ-1234",
-    customer: "John Doe",
-    service: "Electrical Panel Upgrade",
-    status: "pending",
-    value: "$2,500",
-    date: "2 mins ago",
-  },
-  {
-    id: "REQ-1233",
-    customer: "Sarah Smith",
-    service: "Solar Installation",
-    status: "in_progress",
-    value: "$8,500",
-    date: "15 mins ago",
-  },
-  {
-    id: "REQ-1232",
-    customer: "Mike Johnson",
-    service: "Emergency Repair",
-    status: "completed",
-    value: "$450",
-    date: "1 hour ago",
-  },
-  {
-    id: "REQ-1231",
-    customer: "Emily Davis",
-    service: "EV Charger Setup",
-    status: "quote_sent",
-    value: "$1,200",
-    date: "2 hours ago",
-  },
-  {
-    id: "REQ-1230",
-    customer: "Robert Wilson",
-    service: "Rewiring",
-    status: "cancelled",
-    value: "$3,200",
-    date: "3 hours ago",
-  },
-]
+const recentRequests = adminRecentRequests.map((r) => ({
+  id: r.id,
+  customer: r.customer,
+  service: r.service,
+  status: r.status,
+  value: formatCurrency(r.estimatedCost),
+  date: r.createdAt,
+}))
 
-const pendingApplications = [
-  {
-    id: 1,
-    name: "David Chen",
-    specialty: "Solar Installation",
-    experience: "8 years",
-    date: "Today",
-  },
-  {
-    id: 2,
-    name: "Lisa Park",
-    specialty: "Residential Electrical",
-    experience: "5 years",
-    date: "Today",
-  },
-  {
-    id: 3,
-    name: "James Wilson",
-    specialty: "Commercial Electrical",
-    experience: "12 years",
-    date: "Yesterday",
-  },
-]
+const pendingApplications = adminPendingApplications.map((app, index) => ({
+  id: index + 1,
+  name: app.name,
+  specialty: app.specialty,
+  experience: app.experience,
+  date: app.appliedDate,
+}))
 
-const topTechnicians = [
-  { name: "Mike Johnson", jobs: 24, rating: 4.9, earnings: "$12,450" },
-  { name: "Sarah Williams", jobs: 21, rating: 4.8, earnings: "$10,200" },
-  { name: "David Chen", jobs: 18, rating: 4.9, earnings: "$9,800" },
-]
+const topTechnicians = adminTopTechnicians.map((t) => ({
+  name: t.name,
+  jobs: t.jobs,
+  rating: t.rating,
+  earnings: formatCurrency(t.earnings),
+}))
 
 const getStatusBadge = (status: string) => {
   const statusMap: Record<string, { variant: "default" | "success" | "warning" | "info" | "pending" | "destructive"; label: string; icon: typeof Clock }> = {
     pending: { variant: "pending", label: "Pending", icon: Clock },
     quote_sent: { variant: "info", label: "Quote Sent", icon: Clock },
+    quoted: { variant: "info", label: "Quoted", icon: Clock },
+    scheduled: { variant: "warning", label: "Scheduled", icon: Calendar },
     in_progress: { variant: "default", label: "In Progress", icon: Wrench },
     completed: { variant: "success", label: "Completed", icon: CheckCircle },
     cancelled: { variant: "destructive", label: "Cancelled", icon: XCircle },

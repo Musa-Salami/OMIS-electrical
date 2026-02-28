@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation"
 import Link from "next/link"
+import { getRequestById, technicians, quotes } from "@/lib/mockData"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -23,35 +24,43 @@ import {
   Camera
 } from "lucide-react"
 
-const mockRequestDetail = {
-  id: "REQ-001",
-  title: "Solar Panel Installation - Rooftop",
-  service: "Solar Panel Installation",
-  status: "in_progress",
-  priority: "high",
-  createdAt: "2026-02-20",
-  scheduledDate: "2026-03-05",
-  completedDate: null,
-  description: "Looking to install solar panels on our south-facing roof. Roof is approximately 1,500 sq ft. We want to offset at least 80% of current electricity usage averaging 1,200 kWh/month.",
-  address: "123 Main St, Austin, TX 78701",
-  estimatedCost: 15000,
-  urgency: "High",
-  technician: {
-    name: "Mike Wilson",
-    initials: "MW",
-    phone: "(555) 111-2222",
-    email: "mike.w@omis.com",
-    rating: 4.9,
-    completedJobs: 156,
-  },
-  timeline: [
-    { date: "2026-02-20", status: "Request Submitted", description: "Your service request has been received." },
-    { date: "2026-02-21", status: "Quote Sent", description: "Mike Wilson sent a quote for $15,000." },
-    { date: "2026-02-22", status: "Quote Accepted", description: "You accepted the quote." },
-    { date: "2026-02-28", status: "Permits Applied", description: "Building permits have been submitted." },
-    { date: "2026-03-05", status: "Installation Scheduled", description: "Installation set for March 5, 2026." },
-  ],
-  photos: [] as string[],
+function getRequestDetail(id: string) {
+  const req = getRequestById(id)
+  if (!req) return null
+
+  const tech = req.techId ? technicians.find(t => t.id === req.techId) : null
+  const quote = quotes.find(q => q.requestId === req.id)
+
+  return {
+    id: req.id,
+    title: `${req.service} - ${req.address.split(",")[0]}`,
+    service: req.service,
+    status: req.status,
+    priority: req.priority,
+    createdAt: req.createdAt,
+    scheduledDate: req.scheduledDate,
+    completedDate: req.status === "completed" ? req.scheduledDate : null,
+    description: req.description,
+    address: req.address,
+    estimatedCost: req.estimatedCost,
+    urgency: req.priority === "urgent" ? "Urgent" : req.priority === "high" ? "High" : req.priority === "medium" ? "Medium" : "Low",
+    technician: tech ? {
+      name: tech.name,
+      initials: tech.initials,
+      phone: tech.phone,
+      email: tech.email,
+      rating: tech.rating,
+      completedJobs: tech.completedJobs,
+    } : null,
+    timeline: [
+      { date: req.createdAt, status: "Request Submitted", description: "Your service request has been received." },
+      ...(quote ? [{ date: quote.submittedDate, status: "Quote Sent", description: `${tech?.name || "Technician"} sent a quote for $${req.estimatedCost.toLocaleString()}.` }] : []),
+      ...(quote?.status === "accepted" ? [{ date: quote.submittedDate, status: "Quote Accepted", description: "You accepted the quote." }] : []),
+      ...(req.scheduledDate ? [{ date: req.scheduledDate, status: "Service Scheduled", description: `Service scheduled for ${req.scheduledDate}.` }] : []),
+    ],
+    photos: [] as string[],
+    quoteBreakdown: quote?.breakdown || [],
+  }
 }
 
 const statusConfig: Record<string, { label: string; color: string }> = {
@@ -65,7 +74,8 @@ const statusConfig: Record<string, { label: string; color: string }> = {
 
 export default function RequestDetailPage() {
   const params = useParams()
-  const request = mockRequestDetail
+  const requestId = typeof params.id === "string" ? params.id : params.id?.[0] || "REQ-001"
+  const request = getRequestDetail(requestId) || getRequestDetail("REQ-001")!
   const status = statusConfig[request.status] || statusConfig.pending
 
   return (
@@ -197,32 +207,38 @@ export default function RequestDetailPage() {
               <CardTitle className="text-lg">Assigned Technician</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-center mb-4">
-                <Avatar className="h-16 w-16 mx-auto mb-2">
-                  <AvatarFallback className="bg-emerald-100 text-emerald-700 text-lg">
-                    {request.technician.initials}
-                  </AvatarFallback>
-                </Avatar>
-                <h3 className="font-semibold">{request.technician.name}</h3>
-                <div className="flex items-center justify-center gap-1 text-amber-500 text-sm">
-                  <Star className="h-4 w-4 fill-current" />
-                  {request.technician.rating} • {request.technician.completedJobs} jobs
-                </div>
-              </div>
-              <div className="space-y-2.5 text-sm">
-                <div className="flex items-center gap-3">
-                  <Phone className="h-4 w-4 text-muted-foreground" />
-                  <span>{request.technician.phone}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Mail className="h-4 w-4 text-muted-foreground" />
-                  <span>{request.technician.email}</span>
-                </div>
-              </div>
-              <Button className="w-full mt-4" variant="outline" size="sm">
-                <MessageSquare className="h-4 w-4 mr-2" />
-                Send Message
-              </Button>
+              {request.technician ? (
+                <>
+                  <div className="text-center mb-4">
+                    <Avatar className="h-16 w-16 mx-auto mb-2">
+                      <AvatarFallback className="bg-emerald-100 text-emerald-700 text-lg">
+                        {request.technician.initials}
+                      </AvatarFallback>
+                    </Avatar>
+                    <h3 className="font-semibold">{request.technician.name}</h3>
+                    <div className="flex items-center justify-center gap-1 text-amber-500 text-sm">
+                      <Star className="h-4 w-4 fill-current" />
+                      {request.technician.rating} • {request.technician.completedJobs} jobs
+                    </div>
+                  </div>
+                  <div className="space-y-2.5 text-sm">
+                    <div className="flex items-center gap-3">
+                      <Phone className="h-4 w-4 text-muted-foreground" />
+                      <span>{request.technician.phone}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Mail className="h-4 w-4 text-muted-foreground" />
+                      <span>{request.technician.email}</span>
+                    </div>
+                  </div>
+                  <Button className="w-full mt-4" variant="outline" size="sm">
+                    <MessageSquare className="h-4 w-4 mr-2" />
+                    Send Message
+                  </Button>
+                </>
+              ) : (
+                <p className="text-center text-muted-foreground py-4">No technician assigned yet</p>
+              )}
             </CardContent>
           </Card>
 
@@ -232,28 +248,22 @@ export default function RequestDetailPage() {
               <CardTitle className="text-lg">Quote Summary</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Materials</span>
-                  <span>$10,500</span>
+              {request.quoteBreakdown.length > 0 ? (
+                <div className="space-y-3">
+                  {request.quoteBreakdown.map((item, i) => (
+                    <div key={i} className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">{item.item}</span>
+                      <span>${item.cost.toLocaleString()}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between font-bold pt-3 border-t">
+                    <span>Total</span>
+                    <span className="text-green-600">${request.estimatedCost.toLocaleString()}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Labor</span>
-                  <span>$2,500</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Permits</span>
-                  <span>$500</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Wiring</span>
-                  <span>$1,500</span>
-                </div>
-                <div className="flex justify-between font-bold pt-3 border-t">
-                  <span>Total</span>
-                  <span className="text-green-600">${request.estimatedCost.toLocaleString()}</span>
-                </div>
-              </div>
+              ) : (
+                <p className="text-sm text-muted-foreground">No quote available yet</p>
+              )}
               <Button variant="outline" className="w-full mt-4" size="sm">
                 <FileText className="h-4 w-4 mr-2" />
                 View Full Quote

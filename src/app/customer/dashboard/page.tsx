@@ -16,19 +16,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { customerDashboardStats, customerRecentRequests, serviceRequests } from "@/lib/mockData"
 
 const stats = [
   {
     title: "Active Requests",
-    value: "3",
-    change: "+1 this week",
+    value: String(customerDashboardStats.activeRequests),
+    change: "Currently in progress",
     icon: Wrench,
     color: "text-blue-600",
     bgColor: "bg-blue-100",
   },
   {
     title: "Pending Quotes",
-    value: "2",
+    value: String(customerDashboardStats.pendingQuotes),
     change: "Awaiting response",
     icon: Clock,
     color: "text-amber-600",
@@ -36,15 +37,15 @@ const stats = [
   },
   {
     title: "Completed Jobs",
-    value: "12",
-    change: "+3 this month",
+    value: String(customerDashboardStats.completedJobs),
+    change: "Total completed",
     icon: CheckCircle,
     color: "text-emerald-600",
     bgColor: "bg-emerald-100",
   },
   {
     title: "Total Spent",
-    value: "$4,580",
+    value: `$${customerDashboardStats.totalSpent.toLocaleString()}`,
     change: "Lifetime value",
     icon: DollarSign,
     color: "text-purple-600",
@@ -52,58 +53,40 @@ const stats = [
   },
 ]
 
-const recentRequests = [
-  {
-    id: "REQ-001",
-    title: "Electrical Panel Upgrade",
-    status: "in_progress",
-    date: "Mar 15, 2024",
-    technician: "Mike Johnson",
-    avatar: "MJ",
-  },
-  {
-    id: "REQ-002",
-    title: "Solar Panel Installation",
-    status: "quote_pending",
-    date: "Mar 14, 2024",
-    technician: null,
-    avatar: null,
-  },
-  {
-    id: "REQ-003",
-    title: "Emergency Rewiring",
-    status: "completed",
-    date: "Mar 10, 2024",
-    technician: "Sarah Williams",
-    avatar: "SW",
-  },
-]
+const recentRequests = customerRecentRequests.map(req => ({
+  id: req.id,
+  title: req.service,
+  status: req.status,
+  date: req.createdAt,
+  technician: req.assignedTech,
+  avatar: req.assignedTech ? req.assignedTech.split(" ").map((n: string) => n[0]).join("") : null,
+}))
 
-const upcomingAppointments = [
-  {
-    id: 1,
-    title: "Panel Installation",
-    date: "Tomorrow",
+const upcomingAppointments = serviceRequests
+  .filter(r => r.customerId === "CUS-001" && r.scheduledDate && r.status !== "completed" && r.status !== "cancelled")
+  .map(r => ({
+    id: r.id,
+    title: r.service,
+    date: r.scheduledDate!,
     time: "9:00 AM - 12:00 PM",
-    technician: "Mike Johnson",
-  },
-  {
-    id: 2,
-    title: "Site Inspection",
-    date: "Mar 20, 2024",
-    time: "2:00 PM - 3:00 PM",
-    technician: "Sarah Williams",
-  },
-]
+    technician: r.assignedTech || "Unassigned",
+  }))
 
 const getStatusBadge = (status: string) => {
   switch (status) {
     case "in_progress":
       return <Badge variant="info">In Progress</Badge>
+    case "pending":
     case "quote_pending":
-      return <Badge variant="warning">Quote Pending</Badge>
+      return <Badge variant="warning">Pending</Badge>
+    case "quoted":
+      return <Badge variant="warning">Quote Received</Badge>
+    case "scheduled":
+      return <Badge variant="info">Scheduled</Badge>
     case "completed":
       return <Badge variant="success">Completed</Badge>
+    case "cancelled":
+      return <Badge variant="destructive">Cancelled</Badge>
     default:
       return <Badge variant="secondary">Unknown</Badge>
   }

@@ -17,69 +17,23 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { serviceRequests } from "@/lib/mockData"
 
-const requests = [
-  {
-    id: "REQ-001",
-    title: "Electrical Panel Upgrade",
-    description: "Upgrade from 100A to 200A panel for home expansion",
-    serviceType: "Panel Upgrade",
-    status: "in_progress",
-    urgency: "standard",
-    date: "Mar 15, 2024",
-    address: "123 Oak Street, Austin, TX",
-    technician: { name: "Mike Johnson", avatar: "MJ" },
-    estimatedCost: "$2,500",
-  },
-  {
-    id: "REQ-002",
-    title: "Solar Panel Installation",
-    description: "Install 20-panel solar system with battery backup",
-    serviceType: "Solar Installation",
-    status: "quote_pending",
-    urgency: "standard",
-    date: "Mar 14, 2024",
-    address: "456 Elm Ave, Austin, TX",
-    technician: null,
-    estimatedCost: "Pending",
-  },
-  {
-    id: "REQ-003",
-    title: "Emergency Rewiring",
-    description: "Rewiring after water damage in basement",
-    serviceType: "Rewiring",
-    status: "completed",
-    urgency: "emergency",
-    date: "Mar 10, 2024",
-    address: "789 Pine Rd, Austin, TX",
-    technician: { name: "Sarah Williams", avatar: "SW" },
-    estimatedCost: "$1,800",
-  },
-  {
-    id: "REQ-004",
-    title: "Outdoor Lighting Setup",
-    description: "Install landscape lighting in backyard",
-    serviceType: "Lighting",
-    status: "scheduled",
-    urgency: "flexible",
-    date: "Mar 8, 2024",
-    address: "321 Maple St, Austin, TX",
-    technician: { name: "David Chen", avatar: "DC" },
-    estimatedCost: "$950",
-  },
-  {
-    id: "REQ-005",
-    title: "EV Charger Installation",
-    description: "Install Level 2 EV charger in garage",
-    serviceType: "EV Charger",
-    status: "pending",
-    urgency: "standard",
-    date: "Mar 5, 2024",
-    address: "654 Cedar Ln, Austin, TX",
-    technician: null,
-    estimatedCost: "Pending",
-  },
-]
+const requests = serviceRequests.map(r => ({
+  id: r.id,
+  title: r.service,
+  description: r.description,
+  serviceType: r.service,
+  status: r.status === "quoted" ? "quote_pending" : r.status,
+  urgency: r.urgency === "HIGH" ? "emergency" : r.urgency === "MEDIUM" ? "standard" : r.urgency === "LOW" ? "flexible" : "standard",
+  date: r.createdAt,
+  address: r.address,
+  technician: r.assignedTech ? {
+    name: r.assignedTech,
+    avatar: r.assignedTech.split(" ").map((n: string) => n[0]).join(""),
+  } : null,
+  estimatedCost: r.estimatedCost ? `$${r.estimatedCost.toLocaleString()}` : "Pending",
+}))
 
 const getStatusBadge = (status: string) => {
   const statusMap: Record<string, { variant: "default" | "success" | "warning" | "info" | "pending" | "destructive"; label: string }> = {
@@ -88,6 +42,7 @@ const getStatusBadge = (status: string) => {
     scheduled: { variant: "info", label: "Scheduled" },
     in_progress: { variant: "default", label: "In Progress" },
     completed: { variant: "success", label: "Completed" },
+    quoted: { variant: "warning", label: "Quote Received" },
     cancelled: { variant: "destructive", label: "Cancelled" },
   }
   const { variant, label } = statusMap[status] || { variant: "default", label: status }

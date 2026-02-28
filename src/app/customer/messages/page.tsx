@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { technicians } from "@/lib/mockData"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -20,13 +21,16 @@ import {
   Image as ImageIcon
 } from "lucide-react"
 
+const mikeWilson = technicians.find(t => t.id === "TECH-001")!
+const tomHarris = technicians.find(t => t.id === "TECH-003")!
+
 const mockConversations = [
   {
     id: "conv-1",
-    name: "Mike Wilson",
+    name: mikeWilson.name,
     role: "Solar Technician",
-    initials: "MW",
-    lastMessage: "I'll be there tomorrow at 9 AM for the solar panel inspection.",
+    initials: mikeWilson.initials,
+    lastMessage: "I'll be there on March 5th for the solar panel installation.",
     time: "10:30 AM",
     unread: 2,
     online: true,
@@ -34,10 +38,10 @@ const mockConversations = [
   },
   {
     id: "conv-2",
-    name: "Tom Harris",
+    name: tomHarris.name,
     role: "EV Specialist",
-    initials: "TH",
-    lastMessage: "The EV charger has been ordered. Expected delivery in 3-5 days.",
+    initials: tomHarris.initials,
+    lastMessage: "The EV charger quote has been sent. Please review it.",
     time: "Yesterday",
     unread: 0,
     online: false,
@@ -59,7 +63,7 @@ const mockConversations = [
 const mockMessages = [
   {
     id: 1,
-    sender: "Mike Wilson",
+    sender: mikeWilson.name,
     isMe: false,
     message: "Hi John! I've reviewed your solar installation request. The roof looks great for solar panels.",
     time: "9:00 AM",
@@ -75,7 +79,7 @@ const mockMessages = [
   },
   {
     id: 3,
-    sender: "Mike Wilson",
+    sender: mikeWilson.name,
     isMe: false,
     message: "Based on your average monthly usage of 1,200 kWh, I'd recommend a 8kW system with 20 panels. This should cover about 90% of your electricity needs.",
     time: "9:30 AM",
@@ -91,7 +95,7 @@ const mockMessages = [
   },
   {
     id: 5,
-    sender: "Mike Wilson",
+    sender: mikeWilson.name,
     isMe: false,
     message: "Once we get the permits approved (usually 1-2 weeks), the actual installation takes about 3-4 days. I'll send you a detailed quote shortly.",
     time: "10:00 AM",
@@ -99,9 +103,9 @@ const mockMessages = [
   },
   {
     id: 6,
-    sender: "Mike Wilson",
+    sender: mikeWilson.name,
     isMe: false,
-    message: "I'll be there tomorrow at 9 AM for the solar panel inspection.",
+    message: "I'll be there on March 5th for the solar panel installation.",
     time: "10:30 AM",
     status: "delivered",
   },

@@ -17,28 +17,7 @@ import {
   Wallet,
   BarChart3
 } from "lucide-react"
-
-const earningsData = [
-  { month: "Sep", amount: 5200 },
-  { month: "Oct", amount: 6800 },
-  { month: "Nov", amount: 5900 },
-  { month: "Dec", amount: 4500 },
-  { month: "Jan", amount: 7200 },
-  { month: "Feb", amount: 6400 },
-]
-
-const recentPayments = [
-  { id: "PAY-101", date: "2026-02-26", service: "Emergency Repair", customer: "Robert Davis", amount: 650, status: "paid" },
-  { id: "PAY-100", date: "2026-02-22", service: "Solar Maintenance", customer: "Lisa Anderson", amount: 380, status: "paid" },
-  { id: "PAY-099", date: "2026-02-18", service: "Panel Inspection", customer: "Jennifer Wilson", amount: 250, status: "paid" },
-  { id: "PAY-098", date: "2026-02-15", service: "EV Charger Install", customer: "Michael Brown", amount: 920, status: "paid" },
-  { id: "PAY-097", date: "2026-02-10", service: "Residential Wiring", customer: "Sarah Johnson", amount: 1100, status: "paid" },
-]
-
-const pendingPayments = [
-  { id: "INV-012", service: "Solar Installation (in progress)", customer: "John Smith", amount: 3500, dueDate: "Upon completion" },
-  { id: "INV-013", service: "Solar Maintenance", customer: "Patricia Lewis", amount: 450, dueDate: "2026-03-05" },
-]
+import { techEarningsMonthly as earningsData, techRecentPayments as recentPayments, techPendingPayments as pendingPayments } from "@/lib/mockData"
 
 export default function TechnicianEarningsPage() {
   const totalEarnings = earningsData.reduce((sum, d) => sum + d.amount, 0)
