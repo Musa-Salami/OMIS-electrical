@@ -209,15 +209,15 @@ export default function ServicesPage() {
               From residential repairs to commercial installations, we provide comprehensive 
               electrical and solar solutions tailored to your needs.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="inline-flex flex-col sm:flex-row gap-3 justify-center rounded-full bg-white/10 backdrop-blur-sm px-3 py-3 border border-white/20">
               <Link href="/customer/requests/new">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
+                <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 rounded-full">
                   Request a Service
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                <Button size="lg" className="bg-white/90 text-blue-700 hover:bg-white rounded-full">
                   Get Free Estimate
                 </Button>
               </Link>
@@ -313,14 +313,14 @@ export default function ServicesPage() {
             Contact us today for a free consultation and estimate. Our team is ready to help 
             with all your electrical and solar needs.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="inline-flex flex-col sm:flex-row gap-3 justify-center rounded-full bg-white/10 backdrop-blur-sm px-3 py-3 border border-white/20">
             <Link href="/customer/requests/new">
-              <Button size="lg" className="bg-white text-emerald-600 hover:bg-emerald-50">
+              <Button size="lg" className="bg-white text-emerald-600 hover:bg-emerald-50 rounded-full">
                 Request a Quote
               </Button>
             </Link>
             <Link href="/contact">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+              <Button size="lg" className="bg-white/90 text-emerald-700 hover:bg-white rounded-full">
                 Contact Us
               </Button>
             </Link>

@@ -311,14 +311,14 @@ export default function AboutPage() {
             Join thousands of satisfied customers who trust OMIS Electrical for their 
             electrical and solar needs.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="inline-flex flex-col sm:flex-row gap-3 justify-center rounded-full bg-white/10 backdrop-blur-sm px-3 py-3 border border-white/20">
             <Link href="/customer/requests/new">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
+              <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 rounded-full">
                 Request a Service
               </Button>
             </Link>
             <Link href="/careers">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+              <Button size="lg" className="bg-white/90 text-blue-700 hover:bg-white rounded-full">
                 Join Our Team
               </Button>
             </Link>
