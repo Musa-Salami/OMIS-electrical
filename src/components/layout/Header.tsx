@@ -40,12 +40,12 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-1 rounded-full bg-muted/60 px-1.5 py-1 border border-border/40">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="px-4 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-background rounded-full transition-colors"
               >
                 {link.label}
               </Link>
@@ -53,20 +53,20 @@ export function Header() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2 rounded-full bg-muted/60 px-1.5 py-1 border border-border/40">
             <Link href="/careers">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="rounded-full">
                 Join as Technician
               </Button>
             </Link>
             <Link href="/login">
-              <Button variant="outline" size="sm" className="gap-2">
+              <Button variant="ghost" size="sm" className="rounded-full gap-2">
                 <LogIn className="h-4 w-4" />
                 Login
               </Button>
             </Link>
             <Link href="/register">
-              <Button size="sm" className="gap-2">
+              <Button size="sm" className="rounded-full gap-2">
                 <User className="h-4 w-4" />
                 Get Started
               </Button>

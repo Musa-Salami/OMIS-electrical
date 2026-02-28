@@ -364,20 +364,20 @@ export default function HomePage() {
             Whether you need electrical repairs, solar installation, or want to join our team of technicians, 
             we&apos;re here to help.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="inline-flex flex-col sm:flex-row gap-3 justify-center rounded-full bg-white/10 backdrop-blur-sm px-3 py-3 border border-white/20">
             <Link href="/register">
-              <Button size="xl" className="bg-white text-blue-700 hover:bg-gray-100 gap-2 w-full sm:w-auto">
+              <Button size="xl" className="bg-white text-blue-700 hover:bg-gray-100 gap-2 w-full sm:w-auto rounded-full">
                 Request a Service
                 <ArrowRight className="h-5 w-5" />
               </Button>
             </Link>
             <Link href="/careers">
-              <Button size="xl" variant="outline" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto">
+              <Button size="xl" variant="outline" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto rounded-full">
                 Join Our Team
               </Button>
             </Link>
             <Link href="/admin/login">
-              <Button size="xl" variant="outline" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto">
+              <Button size="xl" variant="outline" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto rounded-full">
                 Admin Login
               </Button>
             </Link>
