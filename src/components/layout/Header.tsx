@@ -65,18 +65,33 @@ export function Header() {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-2 rounded-full bg-muted/60 px-1.5 py-1 border border-border/40">
             <Link href="/careers">
-              <Button variant="ghost" size="sm" className="rounded-full text-foreground font-medium">
+              <Button variant="ghost" size="sm" className={cn(
+                "rounded-full font-medium",
+                pathname === "/careers" || pathname.startsWith("/careers")
+                  ? "bg-blue-600 text-white shadow-sm hover:bg-blue-700"
+                  : "text-foreground"
+              )}>
                 Join as Technician
               </Button>
             </Link>
             <Link href="/login">
-              <Button variant="ghost" size="sm" className="rounded-full text-foreground font-medium gap-2">
+              <Button variant="ghost" size="sm" className={cn(
+                "rounded-full font-medium gap-2",
+                pathname === "/login"
+                  ? "bg-blue-600 text-white shadow-sm hover:bg-blue-700"
+                  : "text-foreground"
+              )}>
                 <LogIn className="h-4 w-4" />
                 Login
               </Button>
             </Link>
             <Link href="/register">
-              <Button size="sm" className="rounded-full gap-2">
+              <Button size="sm" className={cn(
+                "rounded-full gap-2",
+                pathname === "/register"
+                  ? "bg-blue-600 text-white shadow-sm hover:bg-blue-700"
+                  : ""
+              )}>
                 <User className="h-4 w-4" />
                 Get Started
               </Button>
