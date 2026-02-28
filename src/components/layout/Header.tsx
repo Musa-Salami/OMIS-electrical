@@ -55,12 +55,12 @@ export function Header() {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-2 rounded-full bg-muted/60 px-1.5 py-1 border border-border/40">
             <Link href="/careers">
-              <Button variant="ghost" size="sm" className="rounded-full">
+              <Button variant="ghost" size="sm" className="rounded-full text-foreground font-medium">
                 Join as Technician
               </Button>
             </Link>
             <Link href="/login">
-              <Button variant="ghost" size="sm" className="rounded-full gap-2">
+              <Button variant="ghost" size="sm" className="rounded-full text-foreground font-medium gap-2">
                 <LogIn className="h-4 w-4" />
                 Login
               </Button>
