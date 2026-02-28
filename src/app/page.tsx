@@ -376,6 +376,11 @@ export default function HomePage() {
                 Join Our Team
               </Button>
             </Link>
+            <Link href="/admin/login">
+              <Button size="xl" variant="outline" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto">
+                Admin Login
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
