@@ -16,13 +16,15 @@ import {
   Menu,
   X,
   Shield,
-  FileText
+  FileText,
+  Loader2
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
+import { useAdminAuth } from "@/hooks/useAdminAuth"
 
 const sidebarLinks = [
   {
@@ -77,6 +79,29 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { isLoading, isAuthenticated, user, logout } = useAdminAuth()
+
+  // Don't apply layout to login page
+  if (pathname === "/admin/login") {
+    return <>{children}</>
+  }
+
+  // Show loading state while checking auth
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin text-blue-500 mx-auto mb-4" />
+          <p className="text-slate-400">Verifying access...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Don't render dashboard if not authenticated (redirect happens in hook)
+  if (!isAuthenticated) {
+    return null
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -179,17 +204,18 @@ export default function AdminLayout({
           <div className="flex items-center gap-3 mb-4">
             <Avatar>
               <AvatarImage src="/avatars/admin.jpg" />
-              <AvatarFallback>AD</AvatarFallback>
+              <AvatarFallback>{user?.name?.slice(0, 2).toUpperCase() || "AD"}</AvatarFallback>
             </Avatar>
             <div className="flex-1 min-w-0">
-              <p className="font-medium truncate">Admin User</p>
-              <p className="text-xs text-slate-400 truncate">Super Administrator</p>
+              <p className="font-medium truncate">{user?.name || "Admin User"}</p>
+              <p className="text-xs text-slate-400 truncate">{user?.role || "Administrator"}</p>
             </div>
           </div>
           <Button 
             variant="ghost" 
             size="sm" 
             className="w-full justify-start text-red-400 hover:text-red-300 hover:bg-slate-800"
+            onClick={logout}
           >
             <LogOut className="h-4 w-4 mr-2" />
             Sign Out
@@ -216,11 +242,11 @@ export default function AdminLayout({
             <div className="flex items-center gap-3 pl-4 border-l">
               <Avatar>
                 <AvatarImage src="/avatars/admin.jpg" />
-                <AvatarFallback>AD</AvatarFallback>
+                <AvatarFallback>{user?.name?.slice(0, 2).toUpperCase() || "AD"}</AvatarFallback>
               </Avatar>
               <div>
-                <p className="font-medium text-sm">Admin User</p>
-                <p className="text-xs text-muted-foreground">Super Admin</p>
+                <p className="font-medium text-sm">{user?.name || "Admin User"}</p>
+                <p className="text-xs text-muted-foreground">{user?.role || "Admin"}</p>
               </div>
             </div>
           </div>
