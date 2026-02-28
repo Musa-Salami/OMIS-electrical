@@ -40,12 +40,12 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 rounded-full bg-muted/60 px-1.5 py-1 border border-border/40">
+          <nav className="hidden md:flex items-center gap-2 rounded-full bg-muted/60 px-1.5 py-1 border border-border/40">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-4 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-background rounded-full transition-colors"
+                className="px-4 py-1.5 text-sm font-medium text-foreground hover:bg-background rounded-full transition-colors"
               >
                 {link.label}
               </Link>
