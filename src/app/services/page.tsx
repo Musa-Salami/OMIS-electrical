@@ -15,6 +15,7 @@ import {
   Wrench,
   AlertTriangle,
   Settings,
+  Camera,
   CheckCircle,
   ArrowRight,
   Clock,
@@ -161,6 +162,23 @@ const services = [
     priceRange: "$250 - $1,000",
     duration: "1-4 hours",
     emergency: true,
+  },
+  {
+    id: "cctv-security",
+    title: "CCTV & Security Cameras",
+    description: "Professional security camera installation to protect your home or business 24/7.",
+    icon: Camera,
+    color: "bg-slate-100 text-slate-600",
+    features: [
+      "Indoor & outdoor cameras",
+      "Night vision & HD/4K systems",
+      "Remote viewing & mobile app setup",
+      "DVR/NVR recording systems",
+      "Motion detection & alerts",
+      "Wired & wireless options",
+    ],
+    priceRange: "$500 - $5,000",
+    duration: "3-8 hours",
   },
 ]
 
