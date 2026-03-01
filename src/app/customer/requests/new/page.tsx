@@ -10,7 +10,17 @@ import {
   Calendar, 
   MapPin,
   AlertCircle,
-  CheckCircle2
+  CheckCircle2,
+  Home,
+  Building2,
+  Sun,
+  Settings,
+  Wrench,
+  Box,
+  AlertTriangle,
+  Battery,
+  Camera,
+  type LucideIcon
 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -19,6 +29,18 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { SERVICE_TYPES, URGENCY_LEVELS } from "@/lib/constants"
+
+const iconMap: Record<string, LucideIcon> = {
+  Home,
+  Building2,
+  Sun,
+  Settings,
+  Wrench,
+  Box,
+  AlertTriangle,
+  Battery,
+  Camera,
+}
 
 const steps = [
   { id: 1, title: "Service Type" },
@@ -96,7 +118,10 @@ export default function NewRequestPage() {
                             ? "bg-blue-600 text-white" 
                             : "bg-gray-100 text-gray-600"
                         }`}>
-                          <span className="text-xl">{service.icon}</span>
+                          {(() => {
+                            const Icon = iconMap[service.icon]
+                            return Icon ? <Icon className="h-5 w-5" /> : <span className="text-xl">{service.icon}</span>
+                          })()}
                         </div>
                         <div>
                           <h4 className="font-medium">{service.name}</h4>

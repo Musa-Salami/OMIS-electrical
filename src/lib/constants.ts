@@ -86,6 +86,15 @@ export const SERVICE_TYPES = [
     estimatedDuration: 180,
     icon: "Battery",
   },
+  {
+    id: "cctv-security",
+    name: "CCTV & Security Cameras",
+    category: "electrical",
+    description: "Professional security camera and CCTV system installation for homes and businesses",
+    basePrice: 500,
+    estimatedDuration: 180,
+    icon: "Camera",
+  },
 ] as const
 
 // Urgency levels
