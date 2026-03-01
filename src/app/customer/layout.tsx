@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
+import { AnimatedElectricalBackground } from "@/components/ui/animated-electrical-bg"
 import { useState } from "react"
 
 const sidebarLinks = [
@@ -181,8 +182,11 @@ export default function CustomerLayout({
         </div>
       </aside>
 
+      {/* Animated Electrical Background */}
+      <AnimatedElectricalBackground />
+
       {/* Main Content */}
-      <main className="lg:ml-64 min-h-screen">
+      <main className="lg:ml-64 min-h-screen relative z-10">
         {/* Desktop Header */}
         <header className="hidden lg:flex sticky top-0 z-40 bg-white border-b px-6 py-4 items-center justify-between">
           <div>
