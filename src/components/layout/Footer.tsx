@@ -134,9 +134,13 @@ export function Footer() {
       <div className="border-t border-gray-800">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-gray-400">
-              © {new Date().getFullYear()} OMIS Electrical & Solar. All rights reserved.
-            </p>
+            <div className="flex items-center gap-3 text-sm text-gray-400">
+              <p>© {new Date().getFullYear()} OMIS Electrical & Solar. All rights reserved.</p>
+              <span className="hidden md:inline text-gray-600">•</span>
+              <Link href="/admin/login" className="hover:text-gray-300 transition-colors">
+                Staff Login
+              </Link>
+            </div>
             <div className="flex items-center gap-4">
               {socialLinks.map((social) => (
                 <a
