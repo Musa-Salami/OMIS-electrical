@@ -57,7 +57,7 @@ function generateItems(count: number): FloatingItem[] {
     Icon: electricalIcons[i % electricalIcons.length],
     x: Math.random() * 100,
     y: Math.random() * 100,
-    size: 24 + Math.random() * 28, // 24-52px
+    size: 36 + Math.random() * 40, // 36-76px
     duration: 18 + Math.random() * 22, // 18-40s float cycle
     delay: Math.random() * -30, // staggered start
     rotation: Math.random() * 360,
