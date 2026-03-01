@@ -57,11 +57,11 @@ function generateItems(count: number): FloatingItem[] {
     Icon: electricalIcons[i % electricalIcons.length],
     x: Math.random() * 100,
     y: Math.random() * 100,
-    size: 16 + Math.random() * 20, // 16-36px
+    size: 24 + Math.random() * 28, // 24-52px
     duration: 18 + Math.random() * 22, // 18-40s float cycle
     delay: Math.random() * -30, // staggered start
     rotation: Math.random() * 360,
-    opacity: 0.06 + Math.random() * 0.06, // subtle: 0.06-0.12
+    opacity: 0.08 + Math.random() * 0.07, // visible: 0.08-0.15
   }))
 }
 
@@ -75,15 +75,16 @@ export function AnimatedElectricalBackground() {
   if (items.length === 0) return null
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-[1]" aria-hidden="true">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-[30]" aria-hidden="true">
       {items.map((item) => (
         <motion.div
           key={item.id}
-          className="absolute text-blue-500/80"
+          className="absolute text-blue-600"
           style={{
             left: `${item.x}%`,
             top: `${item.y}%`,
             opacity: item.opacity,
+            filter: 'drop-shadow(0 0 2px rgba(59, 130, 246, 0.3))',
           }}
           animate={{
             y: [0, -30, 10, -20, 0],
@@ -100,7 +101,7 @@ export function AnimatedElectricalBackground() {
         >
           <item.Icon
             style={{ width: item.size, height: item.size }}
-            strokeWidth={1.2}
+            strokeWidth={1.5}
           />
         </motion.div>
       ))}
@@ -120,9 +121,9 @@ export function AnimatedElectricalBackground() {
             height="120"
             viewBox="0 0 120 120"
             className="text-amber-400"
-            style={{ opacity: 0.06 }}
+            style={{ opacity: 0.1 }}
             animate={{
-              opacity: [0.04, 0.1, 0.04, 0.07, 0.04],
+              opacity: [0.06, 0.15, 0.06, 0.1, 0.06],
               scale: [1, 1.15, 0.95, 1.1, 1],
             }}
             transition={{
