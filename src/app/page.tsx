@@ -127,13 +127,13 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-background relative">
       <Header />
-      <AnimatedElectricalBackground />
       
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
         <div className="absolute top-20 right-10 w-72 h-72 bg-amber-400/20 rounded-full blur-3xl" />
         <div className="absolute bottom-10 left-10 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl" />
+        <AnimatedElectricalBackground />
         
         <div className="container mx-auto px-4 py-20 md:py-32 relative">
           <div className="max-w-3xl">
