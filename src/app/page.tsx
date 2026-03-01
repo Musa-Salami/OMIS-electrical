@@ -304,8 +304,9 @@ export default function HomePage() {
               </div>
             </div>
             <div className="relative">
-              <div className="aspect-square rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white">
-                <div className="h-full flex flex-col justify-between">
+              <div className="aspect-square rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white relative overflow-hidden">
+                <AnimatedElectricalBackground />
+                <div className="h-full flex flex-col justify-between relative z-10">
                   <div>
                     <Sun className="h-16 w-16 text-amber-400 mb-6" />
                     <h3 className="text-2xl font-bold mb-2">Go Solar Today</h3>
