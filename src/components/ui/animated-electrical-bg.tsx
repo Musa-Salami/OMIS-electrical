@@ -61,7 +61,7 @@ function generateItems(count: number): FloatingItem[] {
     duration: 18 + Math.random() * 22, // 18-40s float cycle
     delay: Math.random() * -30, // staggered start
     rotation: Math.random() * 360,
-    opacity: 0.04 + Math.random() * 0.04, // very subtle: 0.04-0.08
+    opacity: 0.06 + Math.random() * 0.06, // subtle: 0.06-0.12
   }))
 }
 
@@ -75,11 +75,11 @@ export function AnimatedElectricalBackground() {
   if (items.length === 0) return null
 
   return (
-    <div className="fixed inset-0 lg:left-64 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-[1]" aria-hidden="true">
       {items.map((item) => (
         <motion.div
           key={item.id}
-          className="absolute text-blue-400"
+          className="absolute text-blue-500/80"
           style={{
             left: `${item.x}%`,
             top: `${item.y}%`,
@@ -119,10 +119,10 @@ export function AnimatedElectricalBackground() {
             width="120"
             height="120"
             viewBox="0 0 120 120"
-            className="text-yellow-400"
-            style={{ opacity: 0.04 }}
+            className="text-amber-400"
+            style={{ opacity: 0.06 }}
             animate={{
-              opacity: [0.03, 0.07, 0.03, 0.05, 0.03],
+              opacity: [0.04, 0.1, 0.04, 0.07, 0.04],
               scale: [1, 1.15, 0.95, 1.1, 1],
             }}
             transition={{
