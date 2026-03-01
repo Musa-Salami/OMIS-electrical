@@ -204,7 +204,7 @@ export default function TechnicianDashboard() {
                 <CardTitle>New Requests</CardTitle>
                 <CardDescription>Job requests in your area</CardDescription>
               </div>
-              <Link href="/technician/jobs/available">
+              <Link href="/technician/jobs">
                 <Button variant="ghost" size="sm">
                   View All
                   <ArrowRight className="h-4 w-4 ml-2" />
@@ -322,7 +322,7 @@ export default function TechnicianDashboard() {
                   <p className="text-xs text-blue-700 mt-1">
                     Your electrician license expires in 30 days. Please renew to continue accepting jobs.
                   </p>
-                  <Link href="/technician/settings/certifications">
+                  <Link href="/technician/settings">
                     <Button variant="link" size="sm" className="p-0 h-auto text-blue-700 mt-2">
                       Update Certifications →
                     </Button>

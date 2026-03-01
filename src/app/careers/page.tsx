@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
@@ -18,6 +19,11 @@ import {
   Users,
   Briefcase
 } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Careers | OMIS Electrical & Solar",
+  description: "Join our team of certified electrical and solar installation technicians. Competitive pay, flexible schedules, and growth opportunities.",
+}
 
 const benefits = [
   {

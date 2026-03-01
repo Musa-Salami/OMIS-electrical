@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { 
   Search, 
   Mail, 
@@ -26,84 +26,7 @@ import {
   UserPlus,
   Filter
 } from "lucide-react"
-
-const mockApplications = [
-  {
-    id: "APP-001",
-    name: "Alex Thompson",
-    email: "alex.t@email.com",
-    phone: "(555) 111-2222",
-    location: "Austin, TX",
-    appliedDate: "2026-02-28",
-    status: "pending",
-    position: "Solar Installation Technician",
-    experience: "5 years",
-    certifications: ["NABCEP PV Associate", "OSHA 10"],
-    education: "Associate Degree in Electrical Technology",
-    resume: "alex_thompson_resume.pdf",
-    coverLetter: true,
-  },
-  {
-    id: "APP-002",
-    name: "Maria Rodriguez",
-    email: "maria.r@email.com",
-    phone: "(555) 222-3333",
-    location: "Round Rock, TX",
-    appliedDate: "2026-02-27",
-    status: "reviewing",
-    position: "Electrician",
-    experience: "8 years",
-    certifications: ["Master Electrician License", "OSHA 30"],
-    education: "Bachelor's in Electrical Engineering",
-    resume: "maria_rodriguez_resume.pdf",
-    coverLetter: true,
-  },
-  {
-    id: "APP-003",
-    name: "Kevin Chen",
-    email: "kevin.c@email.com",
-    phone: "(555) 333-4444",
-    location: "Cedar Park, TX",
-    appliedDate: "2026-02-26",
-    status: "interview",
-    position: "EV Charger Specialist",
-    experience: "3 years",
-    certifications: ["EVITP Certified", "Journeyman Electrician"],
-    education: "Trade School Certificate",
-    resume: "kevin_chen_resume.pdf",
-    coverLetter: false,
-  },
-  {
-    id: "APP-004",
-    name: "Sarah Williams",
-    email: "sarah.w@email.com",
-    phone: "(555) 444-5555",
-    location: "Pflugerville, TX",
-    appliedDate: "2026-02-25",
-    status: "approved",
-    position: "Solar Installation Technician",
-    experience: "4 years",
-    certifications: ["NABCEP", "First Aid/CPR"],
-    education: "High School Diploma + Apprenticeship",
-    resume: "sarah_williams_resume.pdf",
-    coverLetter: true,
-  },
-  {
-    id: "APP-005",
-    name: "David Park",
-    email: "david.p@email.com",
-    phone: "(555) 555-6666",
-    location: "Georgetown, TX",
-    appliedDate: "2026-02-24",
-    status: "rejected",
-    position: "Electrician",
-    experience: "1 year",
-    certifications: [],
-    education: "Trade School (In Progress)",
-    resume: "david_park_resume.pdf",
-    coverLetter: false,
-  },
-]
+import { mockApplications } from "@/lib/mockData"
 
 const statusConfig: Record<string, { label: string; color: string; icon: React.ElementType }> = {
   pending: { label: "Pending Review", color: "bg-yellow-100 text-yellow-800", icon: Clock },

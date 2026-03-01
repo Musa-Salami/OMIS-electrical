@@ -13,20 +13,20 @@ import {
 
 const footerLinks = {
   services: [
-    { href: "/services/electrical", label: "Electrical Services" },
-    { href: "/services/solar", label: "Solar Installation" },
-    { href: "/services/maintenance", label: "Maintenance" },
-    { href: "/services/emergency", label: "Emergency Services" },
+    { href: "/services#electrical", label: "Electrical Services" },
+    { href: "/services#solar", label: "Solar Installation" },
+    { href: "/services#maintenance", label: "Maintenance" },
+    { href: "/services#emergency", label: "Emergency Services" },
   ],
   company: [
     { href: "/about", label: "About Us" },
     { href: "/careers", label: "Careers" },
     { href: "/contact", label: "Contact" },
-    { href: "/blog", label: "Blog" },
+    { href: "/services", label: "All Services" },
   ],
   support: [
-    { href: "/faq", label: "FAQ" },
-    { href: "/help", label: "Help Center" },
+    { href: "/contact#faq", label: "FAQ" },
+    { href: "/contact", label: "Help & Support" },
     { href: "/privacy", label: "Privacy Policy" },
     { href: "/terms", label: "Terms of Service" },
   ],

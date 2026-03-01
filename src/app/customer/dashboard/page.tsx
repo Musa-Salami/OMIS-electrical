@@ -10,7 +10,8 @@ import {
   ArrowRight,
   Calendar,
   Star,
-  AlertCircle
+  AlertCircle,
+  MessageSquare
 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -202,9 +203,9 @@ export default function CustomerDashboard() {
                   </div>
                 </div>
               ))}
-              <Link href="/customer/appointments">
+              <Link href="/customer/requests">
                 <Button variant="outline" size="sm" className="w-full">
-                  View Calendar
+                  View All Requests
                 </Button>
               </Link>
             </CardContent>
@@ -224,14 +225,14 @@ export default function CustomerDashboard() {
               </Link>
               <Link href="/customer/messages">
                 <Button variant="outline" className="w-full justify-start">
-                  <MessageSquareIcon className="h-4 w-4 mr-2" />
+                  <MessageSquare className="h-4 w-4 mr-2" />
                   Contact Support
                 </Button>
               </Link>
-              <Link href="/customer/reviews">
+              <Link href="/customer/quotes">
                 <Button variant="outline" className="w-full justify-start">
                   <Star className="h-4 w-4 mr-2" />
-                  Leave a Review
+                  View Quotes
                 </Button>
               </Link>
             </CardContent>
@@ -262,21 +263,4 @@ export default function CustomerDashboard() {
   )
 }
 
-function MessageSquareIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-    </svg>
-  )
-}
+

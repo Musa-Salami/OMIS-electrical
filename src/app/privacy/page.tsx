@@ -1,19 +1,17 @@
+import type { Metadata } from "next"
 import Link from "next/link"
-import { Zap } from "lucide-react"
+import { Header } from "@/components/layout/Header"
+import { Footer } from "@/components/layout/Footer"
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | OMIS Electrical & Solar",
+  description: "Privacy policy for OMIS Electrical & Solar Installations platform. Learn how we protect your data.",
+}
 
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4 flex items-center gap-2">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="p-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-lg">
-              <Zap className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-lg font-bold">OMIS Electrical</span>
-          </Link>
-        </div>
-      </header>
+      <Header />
 
       <main className="container mx-auto px-4 py-12 max-w-4xl">
         <h1 className="text-3xl font-bold mb-2">Privacy Policy</h1>
@@ -134,13 +132,14 @@ export default function PrivacyPage() {
         </div>
 
         <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>&copy; 2026 OMIS Electrical &amp; Solar Installations. All rights reserved.</p>
           <div className="flex items-center justify-center gap-4 mt-2">
             <Link href="/terms" className="hover:underline">Terms of Service</Link>
             <Link href="/contact" className="hover:underline">Contact Us</Link>
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   )
 }

@@ -20,37 +20,7 @@ import {
   Zap,
   Star
 } from "lucide-react"
-
-const revenueData = [
-  { month: "Jan", revenue: 45000, jobs: 28 },
-  { month: "Feb", revenue: 52000, jobs: 32 },
-  { month: "Mar", revenue: 48000, jobs: 30 },
-  { month: "Apr", revenue: 61000, jobs: 38 },
-  { month: "May", revenue: 55000, jobs: 35 },
-  { month: "Jun", revenue: 67000, jobs: 42 },
-]
-
-const serviceBreakdown = [
-  { name: "Solar Installation", revenue: 125000, percentage: 38, color: "bg-amber-500" },
-  { name: "Electrical Panels", revenue: 85000, percentage: 26, color: "bg-blue-500" },
-  { name: "EV Chargers", revenue: 52000, percentage: 16, color: "bg-green-500" },
-  { name: "Emergency Repairs", revenue: 35000, percentage: 11, color: "bg-red-500" },
-  { name: "Other Services", revenue: 31000, percentage: 9, color: "bg-purple-500" },
-]
-
-const topTechnicians = [
-  { name: "Mike Wilson", jobs: 45, revenue: 68500, rating: 4.9 },
-  { name: "James Brown", jobs: 42, revenue: 63200, rating: 4.8 },
-  { name: "Carlos Martinez", jobs: 38, revenue: 57800, rating: 5.0 },
-  { name: "Tom Harris", jobs: 35, revenue: 48900, rating: 4.7 },
-]
-
-const recentReports = [
-  { name: "Monthly Revenue Report", date: "Feb 2026", type: "Financial" },
-  { name: "Technician Performance", date: "Feb 2026", type: "HR" },
-  { name: "Customer Satisfaction", date: "Feb 2026", type: "Quality" },
-  { name: "Service Analytics", date: "Jan 2026", type: "Operations" },
-]
+import { revenueData, serviceBreakdown, reportTopTechnicians as topTechnicians, recentReports } from "@/lib/mockData"
 
 export default function AdminReportsPage() {
   const totalRevenue = serviceBreakdown.reduce((sum, s) => sum + s.revenue, 0)

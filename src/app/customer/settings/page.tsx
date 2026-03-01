@@ -134,11 +134,11 @@ export default function CustomerSettingsPage() {
                     </div>
                     <div className="flex items-center gap-4">
                       <label className="flex items-center gap-2 cursor-pointer text-sm">
-                        <input type="checkbox" defaultChecked={item.email} className="rounded" />
+                        <input type="checkbox" defaultChecked={item.email} className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
                         <Mail className="h-4 w-4 text-muted-foreground" />
                       </label>
                       <label className="flex items-center gap-2 cursor-pointer text-sm">
-                        <input type="checkbox" defaultChecked={item.push} className="rounded" />
+                        <input type="checkbox" defaultChecked={item.push} className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
                         <Smartphone className="h-4 w-4 text-muted-foreground" />
                       </label>
                     </div>
@@ -184,7 +184,7 @@ export default function CustomerSettingsPage() {
                       <p className="font-medium">Two-factor authentication is disabled</p>
                       <p className="text-sm text-muted-foreground">Protect your account with 2FA</p>
                     </div>
-                    <Button variant="outline">Enable</Button>
+                    <Button variant="outline" onClick={() => alert("Two-factor authentication setup would begin here.")}>Enable</Button>
                   </div>
                 </CardContent>
               </Card>

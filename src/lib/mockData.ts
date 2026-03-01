@@ -648,3 +648,205 @@ export function getTechnicianById(id: string) {
 export function getRequestById(id: string) {
   return serviceRequests.find((r) => r.id === id)
 }
+
+// ---- ADMIN APPLICATIONS DATA ----
+export const mockApplications = [
+  {
+    id: "APP-001",
+    name: "Alex Thompson",
+    email: "alex.t@email.com",
+    phone: "(555) 111-2222",
+    location: "Austin, TX",
+    appliedDate: "2026-02-28",
+    status: "pending",
+    position: "Solar Installation Technician",
+    experience: "5 years",
+    certifications: ["NABCEP PV Associate", "OSHA 10"],
+    education: "Associate Degree in Electrical Technology",
+    resume: "alex_thompson_resume.pdf",
+    coverLetter: true,
+  },
+  {
+    id: "APP-002",
+    name: "Maria Rodriguez",
+    email: "maria.r@email.com",
+    phone: "(555) 222-3333",
+    location: "Round Rock, TX",
+    appliedDate: "2026-02-27",
+    status: "reviewing",
+    position: "Electrician",
+    experience: "8 years",
+    certifications: ["Master Electrician License", "OSHA 30"],
+    education: "Bachelor's in Electrical Engineering",
+    resume: "maria_rodriguez_resume.pdf",
+    coverLetter: true,
+  },
+  {
+    id: "APP-003",
+    name: "Kevin Chen",
+    email: "kevin.c@email.com",
+    phone: "(555) 333-4444",
+    location: "Cedar Park, TX",
+    appliedDate: "2026-02-26",
+    status: "interview",
+    position: "EV Charger Specialist",
+    experience: "3 years",
+    certifications: ["EVITP Certified", "Journeyman Electrician"],
+    education: "Trade School Certificate",
+    resume: "kevin_chen_resume.pdf",
+    coverLetter: false,
+  },
+  {
+    id: "APP-004",
+    name: "Sarah Williams",
+    email: "sarah.w@email.com",
+    phone: "(555) 444-5555",
+    location: "Pflugerville, TX",
+    appliedDate: "2026-02-25",
+    status: "approved",
+    position: "Solar Installation Technician",
+    experience: "4 years",
+    certifications: ["NABCEP", "First Aid/CPR"],
+    education: "High School Diploma + Apprenticeship",
+    resume: "sarah_williams_resume.pdf",
+    coverLetter: true,
+  },
+  {
+    id: "APP-005",
+    name: "David Park",
+    email: "david.p@email.com",
+    phone: "(555) 555-6666",
+    location: "Georgetown, TX",
+    appliedDate: "2026-02-24",
+    status: "rejected",
+    position: "Electrician",
+    experience: "1 year",
+    certifications: [],
+    education: "Trade School (In Progress)",
+    resume: "david_park_resume.pdf",
+    coverLetter: false,
+  },
+]
+
+// ---- ADMIN REPORTS DATA ----
+export const revenueData = [
+  { month: "Jan", revenue: 45000, jobs: 28 },
+  { month: "Feb", revenue: 52000, jobs: 32 },
+  { month: "Mar", revenue: 48000, jobs: 30 },
+  { month: "Apr", revenue: 61000, jobs: 38 },
+  { month: "May", revenue: 55000, jobs: 35 },
+  { month: "Jun", revenue: 67000, jobs: 42 },
+]
+
+export const serviceBreakdown = [
+  { name: "Solar Installation", revenue: 125000, percentage: 38, color: "bg-amber-500" },
+  { name: "Electrical Panels", revenue: 85000, percentage: 26, color: "bg-blue-500" },
+  { name: "EV Chargers", revenue: 52000, percentage: 16, color: "bg-green-500" },
+  { name: "Emergency Repairs", revenue: 35000, percentage: 11, color: "bg-red-500" },
+  { name: "Other Services", revenue: 31000, percentage: 9, color: "bg-purple-500" },
+]
+
+export const reportTopTechnicians = [
+  { name: "Mike Wilson", jobs: 45, revenue: 68500, rating: 4.9 },
+  { name: "James Brown", jobs: 42, revenue: 63200, rating: 4.8 },
+  { name: "Carlos Martinez", jobs: 38, revenue: 57800, rating: 5.0 },
+  { name: "Tom Harris", jobs: 35, revenue: 48900, rating: 4.7 },
+]
+
+export const recentReports = [
+  { name: "Monthly Revenue Report", date: "Feb 2026", type: "Financial" },
+  { name: "Technician Performance", date: "Feb 2026", type: "HR" },
+  { name: "Customer Satisfaction", date: "Feb 2026", type: "Quality" },
+  { name: "Service Analytics", date: "Jan 2026", type: "Operations" },
+]
+
+// ---- TECHNICIAN MESSAGES DATA ----
+export const technicianConversations = [
+  {
+    id: "conv-1",
+    name: "John Smith",
+    role: "Customer",
+    initials: "JS",
+    lastMessage: "Thanks for the update, looking forward to the installation!",
+    time: "11:00 AM",
+    unread: 1,
+    online: true,
+    requestId: "REQ-001",
+  },
+  {
+    id: "conv-2",
+    name: "Patricia Lewis",
+    role: "Customer",
+    initials: "PL",
+    lastMessage: "Can we reschedule to the afternoon?",
+    time: "9:30 AM",
+    unread: 1,
+    online: false,
+    requestId: "REQ-007",
+  },
+  {
+    id: "conv-3",
+    name: "OMIS Dispatch",
+    role: "Operations",
+    initials: "OD",
+    lastMessage: "New job request in your area - EV charger installation",
+    time: "Yesterday",
+    unread: 0,
+    online: true,
+    requestId: null,
+  },
+  {
+    id: "conv-4",
+    name: "Nancy Clark",
+    role: "Customer",
+    initials: "NC",
+    lastMessage: "What type of wire do you recommend for the garage?",
+    time: "Feb 26",
+    unread: 0,
+    online: false,
+    requestId: "REQ-009",
+  },
+]
+
+export const technicianMessages = [
+  {
+    id: 1,
+    sender: "John Smith",
+    isMe: false,
+    message: "Hi Mike! Just wanted to check on the status of the permit application.",
+    time: "10:00 AM",
+    status: "read",
+  },
+  {
+    id: 2,
+    sender: "Me",
+    isMe: true,
+    message: "Hi John! Good news - the permits were approved yesterday. We're all set for the March 5th installation date.",
+    time: "10:15 AM",
+    status: "read",
+  },
+  {
+    id: 3,
+    sender: "John Smith",
+    isMe: false,
+    message: "That's great! Do I need to prepare anything before you arrive?",
+    time: "10:20 AM",
+    status: "read",
+  },
+  {
+    id: 4,
+    sender: "Me",
+    isMe: true,
+    message: "Just make sure the garage and driveway are accessible for our truck and equipment. We'll arrive around 8 AM and the first day is mostly setting up scaffolding and the mounting rails.",
+    time: "10:30 AM",
+    status: "read",
+  },
+  {
+    id: 5,
+    sender: "John Smith",
+    isMe: false,
+    message: "Thanks for the update, looking forward to the installation!",
+    time: "11:00 AM",
+    status: "delivered",
+  },
+]

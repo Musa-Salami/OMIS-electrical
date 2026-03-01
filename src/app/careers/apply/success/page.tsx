@@ -1,5 +1,6 @@
 "use client"
 
+import { useMemo } from "react"
 import Link from "next/link"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
@@ -39,6 +40,11 @@ const nextSteps = [
 ]
 
 export default function ApplicationSuccessPage() {
+  const referenceNumber = useMemo(
+    () => `OMIS-TECH-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
+    []
+  )
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -72,7 +78,7 @@ export default function ApplicationSuccessPage() {
               <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-sm text-muted-foreground mb-1">Reference Number</p>
                 <p className="text-2xl font-mono font-bold text-emerald-600">
-                  OMIS-TECH-{Math.random().toString(36).substring(2, 8).toUpperCase()}
+                  {referenceNumber}
                 </p>
               </div>
             </CardContent>

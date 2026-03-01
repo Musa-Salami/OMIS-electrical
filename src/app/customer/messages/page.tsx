@@ -5,7 +5,6 @@ import { technicians } from "@/lib/mockData"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { 
@@ -17,7 +16,6 @@ import {
   MessageSquare,
   Check,
   CheckCheck,
-  Clock,
   Image as ImageIcon
 } from "lucide-react"
 
@@ -115,6 +113,7 @@ export default function CustomerMessagesPage() {
   const [selectedConv, setSelectedConv] = useState(mockConversations[0])
   const [newMessage, setNewMessage] = useState("")
   const [searchQuery, setSearchQuery] = useState("")
+  const [messages, setMessages] = useState(mockMessages)
 
   const filteredConvs = mockConversations.filter(conv =>
     conv.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -122,6 +121,15 @@ export default function CustomerMessagesPage() {
 
   const handleSendMessage = () => {
     if (!newMessage.trim()) return
+    const msg = {
+      id: messages.length + 1,
+      sender: "Me",
+      isMe: true,
+      message: newMessage.trim(),
+      time: new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }),
+      status: "delivered" as const,
+    }
+    setMessages(prev => [...prev, msg])
     setNewMessage("")
   }
 
@@ -148,9 +156,9 @@ export default function CustomerMessagesPage() {
           </div>
           <div className="flex-1 overflow-y-auto">
             {filteredConvs.map((conv) => (
-              <div
+              <button
                 key={conv.id}
-                className={`flex items-start gap-3 p-4 cursor-pointer transition-colors border-b ${
+                className={`w-full flex items-start gap-3 p-4 cursor-pointer transition-colors border-b text-left ${
                   selectedConv.id === conv.id ? "bg-blue-50" : "hover:bg-gray-100"
                 }`}
                 onClick={() => setSelectedConv(conv)}
@@ -177,7 +185,7 @@ export default function CustomerMessagesPage() {
                     {conv.unread}
                   </Badge>
                 )}
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -206,10 +214,10 @@ export default function CustomerMessagesPage() {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" aria-label="Call">
                 <Phone className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" aria-label="More options">
                 <MoreVertical className="h-4 w-4" />
               </Button>
             </div>
@@ -220,7 +228,7 @@ export default function CustomerMessagesPage() {
             <div className="text-center">
               <Badge variant="secondary" className="text-xs">Today</Badge>
             </div>
-            {mockMessages.map((msg) => (
+            {messages.map((msg) => (
               <div
                 key={msg.id}
                 className={`flex ${msg.isMe ? "justify-end" : "justify-start"}`}

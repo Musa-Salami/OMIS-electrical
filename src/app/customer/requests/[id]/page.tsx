@@ -95,11 +95,13 @@ export default function RequestDetailPage() {
           <p className="text-muted-foreground mt-1">{request.title}</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm">
-            <MessageSquare className="h-4 w-4 mr-2" />
-            Message Technician
-          </Button>
-          <Button variant="outline" size="sm" className="text-red-600">
+          <Link href="/customer/messages">
+            <Button variant="outline" size="sm">
+              <MessageSquare className="h-4 w-4 mr-2" />
+              Message Technician
+            </Button>
+          </Link>
+          <Button variant="outline" size="sm" className="text-red-600" onClick={() => alert("Cancellation request would be submitted here.")}>
             Cancel Request
           </Button>
         </div>
@@ -231,10 +233,12 @@ export default function RequestDetailPage() {
                       <span>{request.technician.email}</span>
                     </div>
                   </div>
-                  <Button className="w-full mt-4" variant="outline" size="sm">
-                    <MessageSquare className="h-4 w-4 mr-2" />
-                    Send Message
-                  </Button>
+                  <Link href="/customer/messages">
+                    <Button className="w-full mt-4" variant="outline" size="sm">
+                      <MessageSquare className="h-4 w-4 mr-2" />
+                      Send Message
+                    </Button>
+                  </Link>
                 </>
               ) : (
                 <p className="text-center text-muted-foreground py-4">No technician assigned yet</p>
@@ -264,7 +268,7 @@ export default function RequestDetailPage() {
               ) : (
                 <p className="text-sm text-muted-foreground">No quote available yet</p>
               )}
-              <Button variant="outline" className="w-full mt-4" size="sm">
+              <Button variant="outline" className="w-full mt-4" size="sm" onClick={() => { if (request.quoteBreakdown.length > 0) { window.location.href = "/customer/quotes" } }}>
                 <FileText className="h-4 w-4 mr-2" />
                 View Full Quote
               </Button>
@@ -277,14 +281,16 @@ export default function RequestDetailPage() {
               <CardTitle className="text-lg">Need Help?</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <Button variant="outline" className="w-full justify-start" size="sm">
+              <Button variant="outline" className="w-full justify-start" size="sm" onClick={() => alert("Issue report would be submitted here.")}>
                 <AlertCircle className="h-4 w-4 mr-2" />
                 Report an Issue
               </Button>
-              <Button variant="outline" className="w-full justify-start" size="sm">
-                <Phone className="h-4 w-4 mr-2" />
-                Call Support
-              </Button>
+              <a href="tel:+15125550123">
+                <Button variant="outline" className="w-full justify-start" size="sm">
+                  <Phone className="h-4 w-4 mr-2" />
+                  Call Support
+                </Button>
+              </a>
             </CardContent>
           </Card>
         </div>

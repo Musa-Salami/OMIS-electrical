@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
@@ -20,6 +21,16 @@ import {
   Award,
   HeadphonesIcon
 } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "OMIS Electrical & Solar | Professional Installation Services",
+  description: "Professional electrical and solar installation services in Austin, TX. Request services, track progress, and connect with certified technicians.",
+  openGraph: {
+    title: "OMIS Electrical & Solar | Professional Installation Services",
+    description: "Professional electrical and solar installation services. Trusted by 500+ homeowners.",
+    type: "website",
+  },
+}
 
 const services = [
   {
@@ -376,9 +387,9 @@ export default function HomePage() {
                 Join Our Team
               </Button>
             </Link>
-            <Link href="/admin/login">
+            <Link href="/contact">
               <Button size="xl" className="bg-white/90 text-blue-700 hover:bg-white border-0 w-full sm:w-auto rounded-full">
-                Admin Login
+                Contact Us
               </Button>
             </Link>
           </div>

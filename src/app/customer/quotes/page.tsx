@@ -19,9 +19,12 @@ import {
 } from "lucide-react"
 import { quotes as baseQuotes } from "@/lib/mockData"
 
+type QuoteStatus = "pending" | "accepted" | "declined" | "expired"
+
 const mockQuotes = baseQuotes.map(q => ({
   ...q,
   totalCost: q.totalAmount,
+  status: q.status as QuoteStatus,
 }))
 
 const statusConfig: Record<string, { label: string; color: string; icon: React.ElementType }> = {
@@ -33,6 +36,19 @@ const statusConfig: Record<string, { label: string; color: string; icon: React.E
 
 export default function CustomerQuotesPage() {
   const [selectedQuote, setSelectedQuote] = useState<typeof mockQuotes[0] | null>(null)
+  const [quoteList, setQuoteList] = useState(mockQuotes)
+
+  const handleAcceptQuote = (quoteId: string, e: React.MouseEvent) => {
+    e.stopPropagation()
+    setQuoteList(prev => prev.map(q => q.id === quoteId ? { ...q, status: "accepted" as QuoteStatus } : q))
+    if (selectedQuote?.id === quoteId) setSelectedQuote(prev => prev ? { ...prev, status: "accepted" as QuoteStatus } : null)
+  }
+
+  const handleDeclineQuote = (quoteId: string, e: React.MouseEvent) => {
+    e.stopPropagation()
+    setQuoteList(prev => prev.map(q => q.id === quoteId ? { ...q, status: "declined" as QuoteStatus } : q))
+    if (selectedQuote?.id === quoteId) setSelectedQuote(prev => prev ? { ...prev, status: "declined" as QuoteStatus } : null)
+  }
 
   return (
     <div className="space-y-6">
@@ -68,7 +84,7 @@ export default function CustomerQuotesPage() {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Quotes List */}
         <div className="lg:col-span-2 space-y-4">
-          {mockQuotes.map((quote) => {
+          {quoteList.map((quote) => {
             const status = statusConfig[quote.status]
             const StatusIcon = status.icon
 
@@ -119,15 +135,15 @@ export default function CustomerQuotesPage() {
 
                   {quote.status === "pending" && (
                     <div className="flex gap-2 mt-4 pt-4 border-t">
-                      <Button className="flex-1" size="sm">
+                      <Button className="flex-1" size="sm" onClick={(e) => handleAcceptQuote(quote.id, e)}>
                         <CheckCircle2 className="h-4 w-4 mr-2" />
                         Accept Quote
                       </Button>
-                      <Button variant="outline" className="flex-1" size="sm">
+                      <Button variant="outline" className="flex-1" size="sm" onClick={(e) => { e.stopPropagation(); window.location.href = "/customer/messages" }}>
                         <MessageSquare className="h-4 w-4 mr-2" />
                         Discuss
                       </Button>
-                      <Button variant="outline" className="text-red-600" size="sm">
+                      <Button variant="outline" className="text-red-600" size="sm" onClick={(e) => handleDeclineQuote(quote.id, e)}>
                         <XCircle className="h-4 w-4 mr-2" />
                         Decline
                       </Button>
@@ -182,7 +198,7 @@ export default function CustomerQuotesPage() {
                     <p className="text-sm">{selectedQuote.notes}</p>
                   </div>
 
-                  <Button variant="outline" className="w-full" size="sm">
+                  <Button variant="outline" className="w-full" size="sm" onClick={() => alert(`PDF download for ${selectedQuote.id} would start here.`)}>
                     <Download className="h-4 w-4 mr-2" />
                     Download PDF
                   </Button>
