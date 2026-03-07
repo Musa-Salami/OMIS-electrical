@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OMIS — Admin Dashboard</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a class="navbar-brand" href="index.html">
+    <span class="bolt">⚡</span> OMIS Electrical &amp; Solar
+  </a>
+  <div class="navbar-links">
+    <a href="index.html">Home</a>
+    <a href="service-request.html">Request Service</a>
+    <a href="technician-apply.html">Apply as Technician</a>
+    <a href="admin.html" class="active btn-nav">Admin</a>
+  </div>
+</nav>
+
+<!-- Admin Layout -->
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <p class="sidebar-title">Dashboard</p>
+    <div class="sidebar-link active" data-section="overview">📊 Overview</div>
+    <div class="sidebar-link" data-section="services">🔧 Service Requests</div>
+    <div class="sidebar-link" data-section="technicians">👷 Technician Applications</div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="admin-main">
+
+    <!-- Overview Section -->
+    <section id="section-overview" class="admin-section active">
+      <h2 style="margin-bottom:1.5rem;font-size:1.5rem;">Dashboard Overview</h2>
+
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <div class="stat-icon">📋</div>
+          <div>
+            <div class="stat-value" id="stat-total-requests">—</div>
+            <div class="stat-label">Total Requests</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⏳</div>
+          <div>
+            <div class="stat-value" id="stat-pending-requests">—</div>
+            <div class="stat-label">Pending Requests</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div>
+            <div class="stat-value" id="stat-completed-requests">—</div>
+            <div class="stat-label">Completed</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👷</div>
+          <div>
+            <div class="stat-value" id="stat-total-applications">—</div>
+            <div class="stat-label">Applications</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎉</div>
+          <div>
+            <div class="stat-value" id="stat-accepted-applications">—</div>
+            <div class="stat-label">Accepted Techs</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="color:var(--gray-400);font-size:0.85rem;" id="overview-refresh-hint">
+        Data refreshes automatically every 30 seconds.
+      </p>
+    </section>
+
+    <!-- Service Requests Section -->
+    <section id="section-services" class="admin-section">
+      <div class="table-wrapper">
+        <div class="table-header">
+          <h3>🔧 Service Requests</h3>
+          <button class="btn btn-sm btn-secondary" id="refreshServices">↻ Refresh</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Type</th>
+              <th>Address</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="servicesTableBody">
+            <tr><td colspan="9" class="table-empty">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Technician Applications Section -->
+    <section id="section-technicians" class="admin-section">
+      <div class="table-wrapper">
+        <div class="table-header">
+          <h3>👷 Technician Applications</h3>
+          <button class="btn btn-sm btn-secondary" id="refreshTechnicians">↻ Refresh</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Specialization</th>
+              <th>Experience</th>
+              <th>Certifications</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="techniciansTableBody">
+            <tr><td colspan="9" class="table-empty">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <p>&copy; 2024 OMIS Electrical &amp; Solar. All rights reserved.</p>
+</footer>
+
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
